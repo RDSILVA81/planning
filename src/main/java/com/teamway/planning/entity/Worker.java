@@ -1,7 +1,7 @@
 package com.teamway.planning.entity;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -12,8 +12,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
+@Builder
 public class Worker {
 
     @Id

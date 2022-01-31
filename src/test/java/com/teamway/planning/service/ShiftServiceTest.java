@@ -35,18 +35,18 @@ class ShiftServiceTest {
         repositoryMock = mock(ShiftRepository.class);
         service = new ShiftService(repositoryMock);
 
-        worker = new Worker();
+        worker = Worker.builder().build();
         worker.setBadgeNumber(555);
         worker.setDateOfBirthday(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1980"));
         worker.setFirstName("Jhon");
         worker.setLastName("Smith");
 
         date = new SimpleDateFormat("dd/MM/yyyy").parse("01/02/2022");
-        shift = new Shift();
-        shift.setDate(date);
-        shift.setTimeTable(TimeTable.Morning);
-        shift.setWorker(worker);
-
+        shift = Shift.builder()
+                .date(date)
+                .timeTable(TimeTable.Morning)
+                .worker(worker)
+                .build();
     }
 
     @Test

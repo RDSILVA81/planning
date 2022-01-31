@@ -13,6 +13,7 @@ public class WorkerService {
     private final WorkerRepository workerRepository;
 
     public Worker saveWorker(Worker worker){
+
         var existWorker = workerRepository.findByBadgeNumber(worker.getBadgeNumber());
         if(existWorker.isEmpty()){
             return workerRepository.save(worker);

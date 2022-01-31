@@ -1,4 +1,4 @@
-package com.teamway.planning.Controller;
+package com.teamway.planning.controller;
 
 import com.teamway.planning.entity.Shift;
 import com.teamway.planning.entity.Worker;
@@ -11,9 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Time;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping(path="/schedule")
@@ -52,6 +50,16 @@ public class ScheduleController {
         var worker = workerService.findByBadgeNumber(badgeNumber);
         return shiftService.saveShift(worker,date,timeTable);
     }
+
+    @Operation(summary= "Service to update a shift for a worker.",
+            description= "Service to update a shift for a worker. \n**Morning** = 0-8 \n**Afternoon** = 8-16 \n**Night** = 16-24")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PutMapping(value ="/shift")
+    public Shift updateShift(@RequestParam Integer badgeNumber, @RequestParam @DateTimeFormat(pattern="dd/MM/yyyy") Date date, @RequestParam TimeTable timeTable){
+        var worker = workerService.findByBadgeNumber(badgeNumber);
+        return shiftService.updateShift(worker,date,timeTable);
+    }
+
 
     @Operation(summary= "Service to delete a shift for a worker.", description="Service to delete a shift for a worker.")
     @ResponseStatus(HttpStatus.OK)

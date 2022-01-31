@@ -1,4 +1,4 @@
-package com.teamway.planning.Controller;
+package com.teamway.planning.controller;
 
 import com.teamway.planning.exception.ErrorResponse;
 import com.teamway.planning.exception.SchedulerException;

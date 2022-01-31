@@ -2,6 +2,7 @@ package com.teamway.planning.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.teamway.planning.util.TimeTable;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,8 +12,8 @@ import java.util.Date;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
+@Builder
 public class Shift {
     @Id
     @SequenceGenerator(

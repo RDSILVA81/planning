@@ -21,10 +21,11 @@ public class ShiftService {
     public Shift saveShift(final Worker worker, final Date date, final TimeTable timeTable){
        var shiftExist = findByWorkerAndDate(worker,date);
         if(shiftExist.isEmpty()){
-            var shift = new Shift();
-            shift.setDate(date);
-            shift.setTimeTable(timeTable);
-            shift.setWorker(worker);
+            var shift = Shift.builder()
+                    .date(date)
+                    .timeTable(timeTable)
+                    .worker(worker)
+                    .build();
             return shiftRepository.save(shift);
         }
        throw new SchedulerException("There is already a shift for this worker on this day.");
@@ -35,6 +36,16 @@ public class ShiftService {
         if(shift.isPresent()){
             shiftRepository.delete(shift.get());
             return "Success";
+        }
+        throw new SchedulerException("Shift not found");
+    }
+
+    public Shift updateShift(Worker worker, Date date, TimeTable timeTable){
+        var shift = shiftRepository.findByWorkerAndDate(worker,date);
+        if(shift.isPresent()){
+            var shiftUpdate = shift.get();
+            shiftUpdate.setTimeTable(timeTable);
+            return shiftRepository.save(shiftUpdate);
         }
         throw new SchedulerException("Shift not found");
     }

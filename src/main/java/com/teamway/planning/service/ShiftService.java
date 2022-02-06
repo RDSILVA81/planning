@@ -19,7 +19,10 @@ public class ShiftService {
     private final ShiftRepository shiftRepository;
 
     public Shift saveShift(final Worker worker, final Date date, final TimeTable timeTable){
-       var shiftExist = findByWorkerAndDate(worker,date).orElseThrow(()-> new SchedulerException("There is already a shift for this worker on this day."));
+       findByWorkerAndDate(worker,date)
+               .ifPresent( shift -> {
+                   throw new SchedulerException("There is already a shift for this worker on this day.");}
+               );
        var shift = new Shift();
         shift.setDate(date);
         shift.setTimeTable(timeTable);

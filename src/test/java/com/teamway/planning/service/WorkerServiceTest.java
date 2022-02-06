@@ -24,12 +24,11 @@ class WorkerServiceTest {
         repositoryMock = mock(WorkerRepository.class);
         service = new WorkerService(repositoryMock);
 
-        worker = Worker.builder()
-                .badgeNumber(555)
-                .dateOfBirthday(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1980"))
-                .firstName("Jhon")
-                .lastName("Smith")
-                .build();
+        worker = new Worker();
+        worker.setBadgeNumber(555);
+        worker.setDateOfBirthday(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1980"));
+        worker.setFirstName("Jhon");
+        worker.setLastName("Smith");
     }
 
     @Test

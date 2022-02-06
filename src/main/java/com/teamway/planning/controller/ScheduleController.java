@@ -31,14 +31,14 @@ public class ScheduleController {
     @Operation(summary= "Will find a worker by badge number.", description="Will find a worker by badge number.")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/worker")
-    public Worker getWorker(@RequestBody final Integer badgeNumber){
+    public Worker getWorker(@RequestParam final Integer badgeNumber){
         return workerService.findByBadgeNumber(badgeNumber);
     }
 
     @Operation(summary= "Will find a shift list of worker by badge number.", description="Will find a shift list of worker by badge number.")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/shift")
-    public Worker getWorkerShiftList(@RequestParam Integer badgeNumber){
+    public Worker getWorkerShiftList(@RequestParam final Integer badgeNumber){
         return workerService.findByBadgeNumber(badgeNumber);
     }
 
@@ -46,7 +46,7 @@ public class ScheduleController {
             description= "Service to create a shift for a worker. \n**Morning** = 0-8 \n**Afternoon** = 8-16 \n**Night** = 16-24")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value ="/shift")
-    public Shift createShift(@RequestParam Integer badgeNumber, @RequestParam @DateTimeFormat(pattern="dd/MM/yyyy") Date date, @RequestParam TimeTable timeTable){
+    public Shift createShift(@RequestParam final Integer badgeNumber, @RequestParam @DateTimeFormat(pattern="dd/MM/yyyy") final Date date, @RequestParam final TimeTable timeTable){
         var worker = workerService.findByBadgeNumber(badgeNumber);
         return shiftService.saveShift(worker,date,timeTable);
     }
@@ -55,7 +55,7 @@ public class ScheduleController {
             description= "Service to update a shift for a worker. \n**Morning** = 0-8 \n**Afternoon** = 8-16 \n**Night** = 16-24")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping(value ="/shift")
-    public Shift updateShift(@RequestParam Integer badgeNumber, @RequestParam @DateTimeFormat(pattern="dd/MM/yyyy") Date date, @RequestParam TimeTable timeTable){
+    public Shift updateShift(@RequestParam final Integer badgeNumber, @RequestParam @DateTimeFormat(pattern="dd/MM/yyyy") final Date date, @RequestParam final TimeTable timeTable){
         var worker = workerService.findByBadgeNumber(badgeNumber);
         return shiftService.updateShift(worker,date,timeTable);
     }
@@ -64,7 +64,7 @@ public class ScheduleController {
     @Operation(summary= "Service to delete a shift for a worker.", description="Service to delete a shift for a worker.")
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping(value="/shift")
-    public void deleteShift(@RequestParam Integer badgeNumber, @RequestParam @DateTimeFormat(pattern="dd/MM/yyyy") Date date){
+    public void deleteShift(@RequestParam final Integer badgeNumber, @RequestParam @DateTimeFormat(pattern="dd/MM/yyyy") final Date date){
         var worker = workerService.findByBadgeNumber(badgeNumber);
         shiftService.deleteByWorkerAndDate(worker, date);
     }
